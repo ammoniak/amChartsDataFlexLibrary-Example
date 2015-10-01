@@ -61,9 +61,32 @@ Object oChartsDemo is a cWebView
             Set categoryField to "date"
             Set dataDateFormat to "DD.MM.YYYY"
             
-            Object oGraph is a cAmGraph
+            Object oGraph1 is a cAmGraph
                 Set valueField to "sales"
                 Set id to "g1"
+                Set valueAxis to "v1"
+                Set type to "column"
+                Set lineColor to "green"
+            End_Object
+            Object oGraph2 is a cAmGraph
+                Set valueField to "count"
+                Set id to "g2"
+                Set valueAxis to "v2"
+                Set lineColor to "red"
+            End_Object
+            Object oAxis1 is a cAmValueAxis
+                Set id to "v1"
+                Set title to "Sales"
+                Set unit to " $"
+                Set axisColor to "green"
+                Set axisThickness to 2
+            End_Object
+            Object oAxis2 is a cAmValueAxis
+                Set id to "v2"
+                Set posit to "right"
+                Set title to "Number of orders"
+                Set axisColor to "red"
+                Set axisThickness to 2
             End_Object
             Object oChartScrollbar is a cAmChartScrollbar
                 Set graph to "g1"
@@ -77,6 +100,7 @@ Object oChartsDemo is a cWebView
                 Date oldDate
                 Boolean bFound
                 Number nSales
+                Integer iCount
                 tAmAttributes[] RetVal
                 Send Clear of oOrderHea_DD
                 Send Find of oOrderHea_DD GE Index.3
@@ -87,12 +111,14 @@ Object oChartsDemo is a cWebView
                         tAmAttributes entry
                         Send AddNVP "date" oldDate (&entry)
                         Send AddNnp "sales" nSales (&entry)
+                        Send AddNNP "count" iCount (&entry)
                         Move entry to RetVal[(SizeOfArray(RetVal))]
                         
-                        
+                        Move 0 to iCount
                         Move 0 to nSales
                         Move OrderHea.Order_Date to oldDate
                     End
+                    Increment iCount
                     Move (nSales + OrderHea.Order_Total) to nSales
                     Send Find of oOrderHea_DD GT Index.3
                     Move (Found) to bFound
