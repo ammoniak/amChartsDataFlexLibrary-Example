@@ -129,6 +129,48 @@ Object oChartsDemo is a cWebView
             End_Function
         End_Object
         
+        Object oPieChart is a cAmPieChart
+            Set titleField to "name"
+            Set valueField to "sales"
+            Set domID to "pieChartDiv"
+            Set piColumnSpan to 12
+            Function FillData Returns tAmAttributes[]
+                String[] SalesPerson
+                Integer[] SalesCount
+                Integer iIndex iSize
+                Boolean bFound
+                tAmAttributes[] RetVal
+                Send Clear of oOrderHea_DD
+                Send Find of oOrderHea_DD GE Index.1
+                Move (Found) to bFound
+                While (bFound)
+                    Move (SearchArray(SalesP.Name,SalesPerson)) to iIndex
+                    If (iIndex<>-1) Begin
+                        Move (SalesCount[iIndex] +1) to SalesCount[iIndex]
+                    End
+                    Else Begin
+                        Move (SizeOfArray(SalesPerson)) to iIndex
+                       Move SalesP.Name to SalesPerson[iIndex]
+                       Move 1 to SalesCount[iIndex]
+                    End
+                    Send Find of oOrderHea_DD GT Index.1
+                    Move (Found) to bFound
+                Loop
+                
+                For iIndex from 0 to (SizeOfArray(SalesPerson) -1)
+                    tAmAttributes entry
+                    Send AddNVP "name" (SalesPerson[iIndex]) (&entry)
+                    Send AddNNP "sales" (SalesCount[iIndex]) (&entry)
+                    Move entry to RetVal[(SizeOfArray(RetVal))]
+                Loop
+                
+                
+                Function_Return RetVal
+            End_Function
+            
+            
+        End_Object
+        
         
     End_Object 
 
