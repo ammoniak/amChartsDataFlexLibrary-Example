@@ -1,0 +1,10 @@
+[Properties]
+Version=18.1
+[WorkspacePaths]
+ConfigFile=.\Programs\Config.ws
+[Conditionals]
+Is$WebApp=True
+[Libraries]
+Lib1=..\AmChartsLibrary\AmChartsLibrary.sws
+[Projects]
+Project0=WebApp.src
