@@ -9,6 +9,7 @@ Use OrderHea.DD
 Use Vendor.DD
 Use Invt.DD
 Use OrderDtl.DD
+Use cWebButton.pkg
 
 Object oChartsDemo is a cWebView
     Object oVendor_DD is a Vendor_DataDictionary
@@ -140,7 +141,13 @@ Object oChartsDemo is a cWebView
                 
                 Function_Return RetVal
             End_Function
+//            // Example for a "zoomed-event". Attetion: Fires often!
+//            Procedure onZoomed String endDate Number endIndex String endValue String startDate Number startIndex String startValue
+//                Showln "endDate " endDate " endIndex " endIndex " endValue " endValue " startDate " startDate " startIndex " startIndex " startValue " startValue
+//            End_Procedure
         End_Object
+
+        
         
         Object oSerialChart2 is a cAmSerialChart
             Set domID to "chartdivX"
@@ -258,6 +265,23 @@ Object oChartsDemo is a cWebView
             End_Function
         End_Object
         
+        Object oWebButton1 is a cWebButton
+            Set psCaption to "zoom Out!"
+            Set piColumnSpan to 2
+        
+            Procedure OnClick
+                Send zoomOut of oSerialChart
+            End_Procedure
+        End_Object
+        Object oWebButton2 is a cWebButton
+            Set piColumnSpan to 2
+            Set psCaption to "zoom to first 10 entries"
+            Set piColumnIndex to 2
+            
+            Procedure OnClick
+                Send zoomToIndexes of oSerialChart 0 10
+            End_Procedure
+        End_Object
         Object oPieChart is a cAmPieChart
             Set titleField to "name"
             Set valueField to "sales"
