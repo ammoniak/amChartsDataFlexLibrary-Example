@@ -282,6 +282,47 @@ Object oChartsDemo is a cWebView
                 Send zoomToIndexes of oSerialChart 0 10
             End_Procedure
         End_Object
+        
+        Object oWebButton3 is a cWebButton
+            Set piColumnSpan to 3
+            Set psCaption to "Show number of sales Graph"
+            Set piColumnIndex to 6
+            
+            Procedure OnClick
+                Send showGraph of oSerialChart2 (id(oGraph1(oSerialChart2)))
+            End_Procedure
+        End_Object
+        
+        Object oWebButton4 is a cWebButton
+            Set piColumnSpan to 3
+            Set psCaption to "Hide # of sales Graph"
+            Set piColumnIndex to 9
+            
+            Procedure OnClick
+                Send hideGraph of oSerialChart2 (id(oGraph1(oSerialChart2)))
+            End_Procedure
+        End_Object
+        
+        Object oWebButton5 is a cWebButton
+            Set piColumnSpan to 3
+            Set psCaption to "Highlight sales Graph"
+            Set piColumnIndex to 6
+            
+            Procedure OnClick
+                Send highlightGraph of oSerialChart2 (id(oGraph2(oSerialChart2)))
+            End_Procedure
+        End_Object
+        
+        Object oWebButton6 is a cWebButton
+            Set piColumnSpan to 3
+            Set psCaption to "Unhighlight sales Graph"
+            Set piColumnIndex to 9
+            
+            Procedure OnClick
+                Send unhighlightGraph of oSerialChart2 (id(oGraph2(oSerialChart2)))
+            End_Procedure
+        End_Object
+        
         Object oPieChart is a cAmPieChart
             Set titleField to "name"
             Set valueField to "sales"
