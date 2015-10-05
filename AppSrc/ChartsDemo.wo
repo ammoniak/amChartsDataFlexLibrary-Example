@@ -57,13 +57,13 @@ Object oChartsDemo is a cWebView
         // Define a chart object
         Object oSerialChart is a cAmSerialChart
             Set domID to "chartdiv"
-            Set piColumnSpan to 12
+            Set piColumnSpan to 6
             Set categoryField to "date"
             Set dataDateFormat to "DD.MM.YYYY"
             
             Object oTitle1 is a cAmTitle
                 Set text to "Orders per day"
-                Set Size to 30
+                Set Size to 18
                 Set bold to True
             End_Object
             Object oTitle2 is a cAmTitle
@@ -144,13 +144,14 @@ Object oChartsDemo is a cWebView
         
         Object oSerialChart2 is a cAmSerialChart
             Set domID to "chartdivX"
-            Set piColumnSpan to 12
+            Set piColumnSpan to 6
             Set categoryField to "date"
             Set dataDateFormat to "DD.MM.YYYY"
+            Set piColumnIndex to 6
             
             Object oTitle1 is a cAmTitle
                 Set text to "Orders per day (different options)"
-                Set Size to 30
+                Set Size to 18
                 Set bold to True
             End_Object
             Object oTitle2 is a cAmTitle
@@ -261,7 +262,7 @@ Object oChartsDemo is a cWebView
             Set titleField to "name"
             Set valueField to "sales"
             Set domID to "pieChartDiv"
-            Set piColumnSpan to 12
+            Set piColumnSpan to 8
             Function FillData Returns tAmAttributes[]
                 String[] SalesPerson
                 Integer[] SalesCount
@@ -298,13 +299,82 @@ Object oChartsDemo is a cWebView
             
             Object oTitle1 is a cAmTitle
                 Set text to "Orders per Sales person"
-                Set Size to 30
+                Set Size to 18
                 Set bold to True
             End_Object
             
             
         End_Object
         
+        Object oBarChart is a cAmSerialChart
+            Set domID to "barChart"
+            Set piColumnIndex to 8
+            Set piColumnSpan to 4
+            Set categoryField to "day"
+            Object oTitle is a cAmTitle
+                Set size to 18
+                Set text to "Bar Chart"
+            End_Object
+            Object oSubTitle is a cAmTitle
+                Set size to 12
+                Set text to "Order distribution per day of week"
+                Set text_Color to "DarkGrey"
+            End_Object
+            
+            Object oGraph1 is a cAmGraph
+                Set type to "column"
+                Set fillAlphas to 1
+                Set lineColor to "#0099CC"
+                Set valueField to "count"
+                
+            End_Object
+            
+            Object categoryAxis is a cAmCategoryAxis
+                Set labelRotation to 45
+            End_Object
+
+            Function FillData Returns tAmAttributes[]
+                Integer[7] CountPerDay
+                Integer Day
+                tAmAttributes[] RetVal
+                Send Clear of oOrderHea_DD
+                Send Find of oOrderHea_DD GE Index.1
+                While (Found)
+                    Increment CountPerDay[(DateGetDayOfWeek(OrderHea.Order_Date))-1]
+                    Send Find of oOrderHea_DD GT Index.1
+                Loop
+                tAmAttributes entry
+                Send AddNVP "day" "Sun" (&entry)
+                Send AddNNP "count" CountPerDay[0] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Send AddNVP "day" "Mon" (&entry)
+                Send AddNNP "count" CountPerDay[1] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Send AddNVP "day" "Tue" (&entry)
+                Send AddNNP "count" CountPerDay[2] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Send AddNVP "day" "Wed" (&entry)
+                Send AddNNP "count" CountPerDay[3] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Send AddNVP "day" "Thu" (&entry)
+                Send AddNNP "count" CountPerDay[4] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Send AddNVP "day" "Fri" (&entry)
+                Send AddNNP "count" CountPerDay[5] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Send AddNVP "day" "Sat" (&entry)
+                Send AddNNP "count" CountPerDay[6] (&entry)
+                Move entry to RetVal[(SizeOfArray(RetVal))]
+                
+                Function_Return RetVal
+            End_Function
+        End_Object
         
     End_Object 
 
